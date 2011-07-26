@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:background="#ffffff">
+
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="60dip" android:orientation="horizontal"
+		android:background="@drawable/titlebar">
+
+		<TextView android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:text="@string/app_name"
+			android:textSize="25dip" android:textColor="#ffffff" android:gravity="center_vertical"
+			android:textStyle="bold" android:drawableLeft="@drawable/icon" />
+
+	</LinearLayout>
+
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="25dip" android:background="#005d1c">
+
+		<TextView android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:text="Fill in the form"
+			android:textSize="20dip" android:paddingLeft="10dip" />
+
+	</LinearLayout>
+	<ScrollView android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<LinearLayout android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:orientation="vertical"
+			android:layout_gravity="top">
+
+			<EditText android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:hint="Height (centimeters)"
+				android:layout_marginTop="10dip" android:id="@+id/height"
+				android:inputType="number" />
+
+			<EditText android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:hint="Weight (kilograms)"
+				android:layout_marginTop="10dip" android:id="@+id/weight"
+				android:inputType="number" />
+
+			<Button android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="Calculate"
+				android:id="@+id/calculateBtn" android:layout_gravity="right" />
+
+			<LinearLayout android:layout_marginTop="20dip"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<TextView android:id="@+id/textBMI" android:layout_width="fill_parent"
+					android:layout_height="fill_parent" android:text="Your Body Mass Index (BMI) : "
+					android:textStyle="bold" android:textColor="#000000"
+					android:visibility="invisible" />
+
+				<TextView android:layout_width="fill_parent"
+					android:layout_height="fill_parent" android:textColor="#000000"
+					android:id="@+id/yourBMI" />
+
+			</LinearLayout>
+			<LinearLayout android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:orientation="horizontal"
+				android:layout_marginTop="10dip">
+
+				<Button android:layout_width="fill_parent"
+					android:layout_height="fill_parent" android:id="@+id/infoBtn"
+					android:text="Information" android:layout_weight="0.5"
+					android:visibility="invisible" />
+
+				<Button android:layout_width="fill_parent"
+					android:layout_height="fill_parent" android:id="@+id/treatBtn"
+					android:text="Treatment" android:layout_weight="0.5"
+					android:visibility="invisible" />
+
+			</LinearLayout>
+
+		</LinearLayout>
+	</ScrollView>
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:gravity="bottom">
+		<LinearLayout android:orientation="vertical"
+			android:background="@drawable/titlebar" android:layout_height="20dip"
+			android:layout_width="fill_parent">
+
+			<TextView android:layout_height="fill_parent"
+				android:layout_width="fill_parent" android:text="Alphabet Seven"
+				android:gravity="right" android:textColor="#ffffff"
+				android:textSize="15dip" android:layout_marginRight="10dip" />
+
+		</LinearLayout>
+	</LinearLayout>
+
+</LinearLayout>
