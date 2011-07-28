@@ -6,12 +6,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
+
 public class BMICalculatorActivity extends Activity {
 	EditText height, weight;
-	TextView yourBMI, title, text, textBMI;
+	TextView yourBMI, text, textBMI;
 	Button calculate, info, treat;
 
 	double heightInt = 0;
@@ -24,6 +29,18 @@ public class BMICalculatorActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		// Create the adView
+		AdView adView = new AdView(this, AdSize.BANNER, "a14e305fcf709f2");
+		// Lookup your LinearLayout assuming it’s been given
+		// the attribute android:id="@+id/mainLayout"
+		LinearLayout layout = (LinearLayout) findViewById(R.id.admob);
+		// Add the adView to it
+		layout.addView(adView);
+		// Initiate a generic request to load it with an ad
+		AdRequest request = new AdRequest();
+		request.setTesting(false);
+		adView.loadAd(request);
+
 		height = (EditText) findViewById(R.id.height);
 		weight = (EditText) findViewById(R.id.weight);
 		calculate = (Button) findViewById(R.id.calculateBtn);
@@ -31,36 +48,42 @@ public class BMICalculatorActivity extends Activity {
 		textBMI = (TextView) findViewById(R.id.textBMI);
 		info = (Button) findViewById(R.id.infoBtn);
 		treat = (Button) findViewById(R.id.treatBtn);
+		text = (TextView) findViewById(R.id.txt);
 
 		calculate.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				heightInt = Double.parseDouble(height.getText().toString())/100;
-				weightInt = Integer.parseInt(weight.getText().toString());
-				bmi = weightInt/ (heightInt * heightInt);
-				String bmiString = "";
+				if (!height.getText().toString().equals("")
+						&& !weight.getText().toString().equals("")) {
 
-				if (bmi <= 18.5) {
-					bmiString = String.valueOf(bmi).toString()
-							+ "(Underweight)";
-				} else if (bmi > 18.5 && bmi <= 24.99) {
-					bmiString = String.valueOf(bmi) + " (Normal Weight)";
-				} else if (bmi >= 25 && bmi <= 29.99) {
-					bmiString = String.valueOf(bmi) + " (Overweight)";
-				} else if (bmi >= 30 && bmi <= 34.99) {
-					bmiString = String.valueOf(bmi) + " (Obesity Class 1)";
-				} else if (bmi >= 35 && bmi <= 39.99) {
-					bmiString = String.valueOf(bmi) + " (Obesity Class 2)";
-				} else if (bmi >= 40) {
-					bmiString = String.valueOf(bmi) + " (Morbid Obesity)";
+					heightInt = Double.parseDouble(height.getText().toString()) / 100;
+					weightInt = Integer.parseInt(weight.getText().toString());
+					bmi = weightInt / (heightInt * heightInt);
+					String bmiString = "";
+
+					if (bmi <= 18.5) {
+						bmiString = String.valueOf(bmi).toString()
+								+ "(Underweight)";
+					} else if (bmi > 18.5 && bmi <= 24.99) {
+						bmiString = String.valueOf(bmi) + " (Normal Weight)";
+					} else if (bmi >= 25 && bmi <= 29.99) {
+						bmiString = String.valueOf(bmi) + " (Overweight)";
+					} else if (bmi >= 30 && bmi <= 34.99) {
+						bmiString = String.valueOf(bmi) + " (Obesity Class 1)";
+					} else if (bmi >= 35 && bmi <= 39.99) {
+						bmiString = String.valueOf(bmi) + " (Obesity Class 2)";
+					} else if (bmi >= 40) {
+						bmiString = String.valueOf(bmi) + " (Morbid Obesity)";
+					}
+
+					textBMI.setVisibility(0); // 0 = Visible ; 4 = Invinsible
+					info.setVisibility(0);
+					treat.setVisibility(0);
+					text.setVisibility(4);
+					yourBMI.setText(bmiString);
 				}
-
-				textBMI.setVisibility(0); // 0 = Visible ; 4 = Invinsible
-				info.setVisibility(0);
-				treat.setVisibility(0);
-				yourBMI.setText(bmiString);
 
 			}
 		});
@@ -70,12 +93,6 @@ public class BMICalculatorActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				setContentView(R.layout.infotreat);
-
-				title = (TextView) findViewById(R.id.title);
-				text = (TextView) findViewById(R.id.text);
-
-				title.setText("Your BMI Information");
 
 				if (bmi <= 18.5) {
 					text.setText(R.string.underweight_info);
@@ -90,6 +107,7 @@ public class BMICalculatorActivity extends Activity {
 				} else if (bmi >= 40) {
 					text.setText(R.string.ob3_info);
 				}
+				text.setVisibility(0);
 			}
 		});
 
@@ -98,12 +116,6 @@ public class BMICalculatorActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				setContentView(R.layout.infotreat);
-
-				title = (TextView) findViewById(R.id.title);
-				text = (TextView) findViewById(R.id.text);
-
-				title.setText("Treatment");
 
 				if (bmi <= 18.5) {
 					text.setText(R.string.underweight_treat);
@@ -118,6 +130,7 @@ public class BMICalculatorActivity extends Activity {
 				} else if (bmi >= 40) {
 					text.setText(R.string.ob_treat);
 				}
+				text.setVisibility(0);
 			}
 		});
 	}
